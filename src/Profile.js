@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 
 
-class Profile extends Component{
+const Profile =()=>{
+    
+        return(
+            <div>
+                Profile
+            </div>
+        )
     
 }
+
+export default Profile;

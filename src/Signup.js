@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
+import authService from './AuthService';
 
-function login(){
-    alert('Login please')
-}
 
-class Signup extends Component{
+
+
+const Signup= (props)=>{
 
     
 
-    render(){
+    
         return(
             <div>
                 <h1>Login</h1>
@@ -22,13 +22,17 @@ class Signup extends Component{
                         <input type="password" id="password" name="password" />
                     </div>
                     <div>
-                        <button onClick={login}>Login</button>
+                        <button onClick={()=>{
+                            authService.login(()=> {
+                                props.history.push('/dashboard/user1')
+                            })
+                        }}>Login</button>
                     </div>
                 </div>
 
             </div>
         )
-    }
+    
 }
 
 export default Signup;
