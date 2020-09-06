@@ -5,6 +5,6 @@ import { reducer as reduxForm} from 'redux-form';
 
 
  export default combineReducers ({
-     auth: AddPatients,
+     data: AddPatients,
      form: reduxForm
  });

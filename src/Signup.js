@@ -1,6 +1,9 @@
 import React, { Component, useState } from 'react'
 import authService from './AuthService';
 
+import {connect} from 'react-redux';
+
+import {signInUser} from './actions';
 
 
 
@@ -35,9 +38,13 @@ const Signup= (props)=>{
                     </div>
                     <div>
                         <button onClick={()=>{
-                            authService.login(email,password,type, ()=> {
-                                props.history.push(`/dashboard/${type}/1`)
-                            })
+                            props.signInUser(email,password,type).then((isValid)=>{
+                                if(isValid){
+                                    props.history.push(`/dashboard/${type}/1`)
+                               }
+                            });
+                         
+                            
                         }}>Login</button>
                     </div>
                 </div>
@@ -47,4 +54,8 @@ const Signup= (props)=>{
     
 }
 
-export default Signup;
+const mapStateToProps =state=>({
+    user: state.data.user
+})
+
+export default connect (mapStateToProps, {signInUser})(Signup);

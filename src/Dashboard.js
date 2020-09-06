@@ -1,71 +1,56 @@
-import React, { Component, useEffect ,useState} from 'react'
-import {useParams} from 'react-router-dom';
+import React, { Component, useEffect ,useState,useCallback } from 'react'
+import {Link,useParams} from 'react-router-dom';
 import { useLocation } from 'react-router';
-import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import {fetchUser,fetchPatients} from './actions'
 
 
-
- const Dashboard = ()=> {
-    const paramsData=useParams()
-
-
-    const [dashboardInfo, setDashboardInfo]= useState(null);
-    const [patients, setPatients]= useState([]);
-    const [params, setParams] = useState(paramsData);
+class Dashboard extends React.Component {
    
-
-
-     useEffect(()=>{
-        console.log(params);
-        setValues();
-     },[]);
-
-
-        const setValues = ()=>{
-            fetchDashboardInfo();
-            if(params.type === 'doctors'){   
-                fetchPatients();
-            }
-        }
-      
-
-
-        const fetchDashboardInfo= async ()=>{
-            const res= await getDashboardInfo(paramsData.type,paramsData.id);
-            setDashboardInfo(res);
-        }
-
-        const fetchPatients = async ()=>{
-            const data= await getAllPatients();
-            setPatients(data);
-        }
-
-        if(dashboardInfo !=null){
-            return(
-                <div>
-                    <DashboardF  info={dashboardInfo} patients={patients} type={params.type} />
-                    <div>
-                        <Link to="/dashboard/addpatient">Add Patient </Link>
-                    </div>
-
-                </div>
-               
-            )
-        }else{
-            return(<div>
-                <p>Not found</p>
-            </div>
-            )
-        }
-       
     
+    // componentDidMount(){
+    //     console.log(this.props);
+    //     if(this.props.user != null && this.props.user.role === 'doctor'){
+    //         this.props.fetchPatients();
+    //     }
+    // }
+    
+        render(){
+            if(this.props.user !=null){
+                return(
+                    <div>
+                        <DashboardF  info={this.props.user} patients={this.props.patients} type='doctors' />
+                        <div>
+                            <Link to="/dashboard/addpatient">Add Patient </Link>
+                        </div>
+    
+                    </div>
+                   
+                )
+            }else{
+                return(<div>
+                    <p>Not found</p>
+                </div>
+                )
+            }
+        }   
  }
 
- export default Dashboard;
+
+const mapStateToProps=state=>({
+    user:state.data.user,
+    patients:state.data.patients
+ })
+
+
+
+ export default connect(mapStateToProps,{fetchPatients})(Dashboard);
+
+
+ 
 
     const DashboardF = ({info, patients, type})=>{
-
-
        
         return(
             <div> 
@@ -85,7 +70,7 @@ import {Link} from 'react-router-dom';
                             Patients List: 
                             <div>
                                 {patients.map(pat=>(
-                                    <div>
+                                    <div key={pat.id}>
                                         <p>Patient Name: {pat.name} </p>
                                         <p>Email: {pat.email} </p>
                                         <p>Previous diagnosis: <ul>{ pat.diagnosis.map(dia=> (<li>{dia}</li>) ) }</ul></p>

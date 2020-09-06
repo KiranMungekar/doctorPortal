@@ -8,14 +8,14 @@ import {createStore, applyMiddleware} from 'redux';
 
 import axios from 'axios';
 
-import reduxThunk from 'redux-thunk';
+import thunk from 'redux-thunk';
 import reducers from './reducers';
 
 
-
+const middleWare=[thunk];
 
 ///Store
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+const store = createStore(reducers, {}, applyMiddleware(...middleWare));
 window.axios= axios;
 
 

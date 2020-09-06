@@ -8,44 +8,56 @@ import _ from 'lodash';
 
 
 
-class AddPatients extends  React.Component{
+const AddPatients =({handleSubmit,valid})=>{
 
-
-    renderFields =()=>{
-        return _.map(FormFields, ({label, name})=>{
-            return(
-                <Field
-                    key={name}
-                    component={FormFieldComponent}
-                    type="text"
-                    label={label}
-                    name={name}
-                />
-            )
-        })
-    }
-
-    render(){
         return (
             <div>
-                <form name="addPatients">
-                   {this.renderFields(FormFields)}
+                <form name="addPatientForm" onSubmit={handleSubmit}>
+                   {renderFields(FormFields)}
+                   <button disabled={!valid} type="submit">
+                    Add Patient
+                    </button>
                 </form>
                 {/* <Link className="btn btn-large red left" to="/"> Cancel</Link> */}
-                        <button className="btn btn-large right" type="submit">
-                            <i className="material-icons plus">forward</i>    
-                            Add Patient
-                        </button>
+                
                 
             </div>
         )
-    }
     
+    
+}
+
+const renderFields=()=>{
+    return _.map(FormFields, ({label, name})=>{
+        return(
+            <Field
+                key={name}
+                component={FormFieldComponent}
+                type="text"
+                label={label}
+                name={name}
+                validate={validator}
+                
+            />
+        )
+    })
+}
+
+const validator= val=>{
+    if(!val || val === ''){
+        return "This field is required";
+    }
+    return undefined;
+}
+
+const onSubmit=(val)=>{
+    alert(JSON.stringify(val));
 }
 
 
 export default reduxForm({
-    form: 'addPatients',
+    form: 'addPatientForm',
+    onSubmit:onSubmit
 })(AddPatients);
 
 

@@ -11,6 +11,8 @@ import ProtectedRoutes from './ProtectedRoutes';
 import  Dashboard  from './Dashboard';
 import AddPatients from './patients/AddPatient';
 
+
+
 function App() {
   return (
     
