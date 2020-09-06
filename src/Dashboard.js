@@ -1,7 +1,7 @@
 import React, { Component, useEffect ,useState} from 'react'
 import {useParams} from 'react-router-dom';
 import { useLocation } from 'react-router';
-
+import {Link} from 'react-router-dom';
 
 
 
@@ -44,6 +44,10 @@ import { useLocation } from 'react-router';
             return(
                 <div>
                     <DashboardF  info={dashboardInfo} patients={patients} type={params.type} />
+                    <div>
+                        <Link to="/dashboard/addpatient">Add Patient </Link>
+                    </div>
+
                 </div>
                
             )
@@ -87,13 +91,11 @@ import { useLocation } from 'react-router';
                                         <p>Previous diagnosis: <ul>{ pat.diagnosis.map(dia=> (<li>{dia}</li>) ) }</ul></p>
                                         <p>Previous Prescription: <ul>{ pat.prescription.map(pre=> (<li>{pre}</li>) ) }</ul></p>
                                         <p>Address: {pat.city}, {pat.state}, zip: {pat.pincode}  </p>
-
                                     </div>
                                 ))}
                             </div>
                         </div>
                 
-                    
                     </div>
             </div>
         )

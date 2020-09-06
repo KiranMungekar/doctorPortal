@@ -9,7 +9,7 @@ import Home from './Home';
 import Profile from './Profile';
 import ProtectedRoutes from './ProtectedRoutes';
 import  Dashboard  from './Dashboard';
-
+import AddPatients from './patients/AddPatient';
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
                 
                 <ProtectedRoutes exact path="/profile/:id" component={Profile} />
                 <ProtectedRoutes exact path="/dashboard/:type/:id" component={Dashboard} />
+                <ProtectedRoutes extact path="/dashboard/addpatient" component={AddPatients}/>
 
                 {/* <Route path="/profile" component={Profile} /> */}
               </Switch>

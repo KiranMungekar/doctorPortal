@@ -27,9 +27,9 @@ const Signup= (props)=>{
                     </div>
                     <div>
                         <label htmlFor="type">Login as</label>
-                        <select value={type} onChange={(e)=> setType(e.target.value)}>
+                        <select value={type} onChange={(e)=> setType(e.target)}>
                             {types.map(type=>(
-                                <option key={type.label} value={type.value} > {type.label} </option>
+                                <option key={type.label} value={type.value} >{type.value}</option>
                             ))}
                         </select>
                     </div>
