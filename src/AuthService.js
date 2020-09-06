@@ -5,8 +5,15 @@ class AuthService{
 
 
 
-    login(cb){
-        this.authenticated=true;
+    login(email,password,type, cb){
+        console.log(email+" "+password+' '+type)
+        if(type==='doctor'){
+            if(email === 'kiran@portal.com', password === '123456'){
+                this.authenticated=true;
+            }else{
+                this.authenticated=false;
+            }
+        }
         cb();
     }
 
@@ -17,7 +24,6 @@ class AuthService{
 
     checkAuth(){
         return this.authenticated;
-
     }
 }
 

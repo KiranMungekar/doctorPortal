@@ -8,7 +8,7 @@ import Signup from './Signup';
 import Home from './Home';
 import Profile from './Profile';
 import ProtectedRoutes from './ProtectedRoutes';
-import { Dashboard } from './Dashboard';
+import  Dashboard  from './Dashboard';
 
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
                 <Route exact path="/signup" component={Signup} />
                 
                 <ProtectedRoutes exact path="/profile/:id" component={Profile} />
-                <ProtectedRoutes exact path="/dashboard/:id" component={Dashboard} />
+                <ProtectedRoutes exact path="/dashboard/:type/:id" component={Dashboard} />
 
                 {/* <Route path="/profile" component={Profile} /> */}
               </Switch>
