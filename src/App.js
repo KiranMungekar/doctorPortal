@@ -20,12 +20,12 @@ const { Title,Text } = Typography;
 function App() {
   return (
     
-        <Layout className="App">
+        <Layout className="">
           <Router>
           <Header>
             <Title level={2}>Doctor Portal</Title>
           </Header>
-          <Content className="App-container">
+          <Content  className="site-layout-background" style={{width:'100%', paddingRight:'30%', paddingLeft:'30%'}} >
               
               <Switch>
                 <Route exact path="/" component={Home} />

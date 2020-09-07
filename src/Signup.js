@@ -4,11 +4,14 @@ import authService from './AuthService';
 import {connect} from 'react-redux';
 
 import {signInUser} from './actions';
+import './index.css';
 
 //Design;
-import { Layout,Button } from 'antd';
 
-
+import { Layout,Button ,Typography,Input,Select} from 'antd';
+const { Title,Text } = Typography;
+const { Header, Footer, Sider, Content } = Layout;
+const { Option } = Select;
 
 const Signup= (props)=>{
     const [email, setEmail]= useState("");
@@ -20,27 +23,39 @@ const Signup= (props)=>{
     const [type, setType]= useState('doctor')
 
         return(
-            <div>
-                <h1>Login</h1>
-                <div>
-                    <div>
-                        <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" value={email}  onChange={(e)=> setEmail(e.target.value)} />
+            <Layout>
+                <Content >
+                    <div className="" style={{padding: 24}}>
+                        <div span={24}>
+                            <Title level={2} >Login</Title>
+                        </div>
+                    
                     </div>
                     <div>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <div span={24}>
+                            <Title level={5} htmlFor="email">Email</Title>
+                            <Input type="text" placeholder="Email" id="email" name="email" value={email}  onChange={(e)=> setEmail(e.target.value)} />
                     </div>
-                    <div>
-                        <label htmlFor="type">Login as</label>
-                        <select value={type} onChange={(e)=> setType(e.target.value)}>
-                            {types.map(type=>(
-                                <option key={type.label} value={type.value} >{type.label}</option>
-                            ))}
-                        </select>
+                    
                     </div>
+                    
                     <div>
-                        <Button className="primary" onClick={()=>{
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <Input type="password" id="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        </div>
+                    </div>
+                    <div style={{textAlign:'center'}}>
+                        <div style={{margin:10}}>
+                            <label htmlFor="type">Login As </label>
+                            <Select value={type} onChange={setType}>
+                                {types.map(type=>(
+                                    <Option key={type.label} value={type.value} >{type.label}</Option>
+                                ))}
+                            </Select>
+                        </div>
+                        <div style={{margin:10}}>
+                            <Button className="primary"  size='large' onClick={()=>{
                             props.signInUser(email,password,type).then(({valid, id})=>{
                                 if(valid){
                                     if(type === 'doctor'){
@@ -55,10 +70,13 @@ const Signup= (props)=>{
                          
                             
                         }}>Login</Button>
+                        </div>
                     </div>
-                </div>
-
-            </div>
+                
+                    
+                </Content>
+            
+            </Layout>
         )
     
 }

@@ -5,6 +5,9 @@ import {connect} from 'react-redux';
 import PatientsList from './patients/PatientsList';
 import {fetchUser,fetchPatients} from './actions'
 
+import { Typography, Divider } from 'antd';
+
+const { Title, Paragraph, Text } = Typography;
 
 const Dashboard = ({user,isLoggedin, patients,fetchPatients,fetchUser,match,history})=> {
    const params=useParams();
@@ -74,16 +77,19 @@ const mapStateToProps=state=>({
        
         return(
             <div> 
-                <h1>`Dashboard of {type}`  </h1> 
+                <Title level={2} >Dashboard of Doctors  </Title> 
+                
+                <Divider />
                 <div> 
-                    <div>Info: 
-                        
+                    <div>
                             <div>
-                                <p>Name: Dr. {info.name} ({info.degree})</p>
-                                <p>Joined On: {info.createdAt}</p>
+                                <p><Title level={5} >Name:</Title> <Title level={5} strong> Dr. {info.name} ({info.degree})</Title> </p>
+                                <p><Title level={5} >Joined On:</Title> <Title level={5} strong>{info.createdAt}</Title> </p>
                             </div>
                         
                     </div>
+                    
+                    <Divider />
                 </div>
             </div>
         )

@@ -23,6 +23,13 @@
   color: white;
 }
 
+container{
+  width: 70%;
+  display:flex;
+  justify-content: center;
+}
+
+
 .App-container{
   display: flex;
   flex-direction: column;
@@ -33,6 +40,10 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.signupContainer{
+  width: 30%;
 }
 
 @keyframes App-logo-spin {
