@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect ,useLocation , useHistory} from 'react-router';
 import {Link, Route} from 'react-router-dom'
 import {connect} from 'react-redux';
-import authService from './AuthService';
+import authService from '../AuthService';
 
 
 const ProtectedRoutes = ({component:Component, user,...rest})=>{

@@ -4,10 +4,10 @@ import './App.css';
 import {Route, BrowserRouter as Router, Switch,Link} from 'react-router-dom';
 
 
-import Signup from './Signup';
-import Home from './Home';
+import Signup from './Components/Signup';
+import Home from './Components/Home';
 import Profile from './Profile';
-import ProtectedRoutes from './ProtectedRoutes';
+import ProtectedRoutes from './Components/ProtectedRoutes';
 import  Dashboard  from './Dashboard';
 import AddPatients from './patients/AddPatient';
 import PatientProfile from './patients/PatientsProfile';
