@@ -10,8 +10,9 @@ export const FormFields= [
         'label':'Email', name:'email',
         
     },
-    {
+    {   
         'label':'Phone', name:'phone'
+        
     },
     {
         'label':'Diagnosis', name:'diaglosis'

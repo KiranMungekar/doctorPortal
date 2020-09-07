@@ -11,8 +11,8 @@ const Signup= (props)=>{
     const [email, setEmail]= useState("");
     const [password, setPassword] = useState("");
     const [types] = useState([
-        {label:'Doctor', value:'doctors'},
-        {label:'Patient', value:'patients'}
+        {label:'Doctor', value:'doctor'},
+        {label:'Patient', value:'patient'}
     ]);
     const [type, setType]= useState('doctor')
 
@@ -32,15 +32,17 @@ const Signup= (props)=>{
                         <label htmlFor="type">Login as</label>
                         <select value={type} onChange={(e)=> setType(e.target)}>
                             {types.map(type=>(
-                                <option key={type.label} value={type.value} >{type.value}</option>
+                                <option key={type.label} value={type.value} >{type.label}</option>
                             ))}
                         </select>
                     </div>
                     <div>
                         <button onClick={()=>{
-                            props.signInUser(email,password,type).then((isValid)=>{
-                                if(isValid){
-                                    props.history.push(`/dashboard/${type}/1`)
+                            props.signInUser(email,password,type).then(({isValid, id})=>{
+                                if(type === 'doctor' && isValid){
+                                    props.history.push(`/dashboard/${type}/${id}`);
+                               }else{
+                                   props.history.push(`/dashboard/${type}/${id}`);
                                }
                             });
                          

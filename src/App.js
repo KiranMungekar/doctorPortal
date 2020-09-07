@@ -10,6 +10,7 @@ import Profile from './Profile';
 import ProtectedRoutes from './ProtectedRoutes';
 import  Dashboard  from './Dashboard';
 import AddPatients from './patients/AddPatient';
+import PatientProfile from './patients/PatientsProfile';
 
 
 
@@ -33,10 +34,10 @@ function App() {
                 <Route exact path="/signup" component={Signup} />
                 
                 <ProtectedRoutes exact path="/profile/:id" component={Profile} />
-                <ProtectedRoutes exact path="/dashboard/:type/:id" component={Dashboard} />
+                <ProtectedRoutes exact path="/dashboard/doctor/:id" component={Dashboard} />
                 <ProtectedRoutes extact path="/dashboard/addpatient" component={AddPatients}/>
-
-                {/* <Route path="/profile" component={Profile} /> */}
+                <ProtectedRoutes extact path="/dashboard/patient/:id" component={PatientProfile} />
+                 {/* <Route path="/profile" component={Profile} /> */}
               </Switch>
               
           </div>
