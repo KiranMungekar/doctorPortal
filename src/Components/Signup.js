@@ -1,10 +1,10 @@
 import React, { Component, useState } from 'react'
-import authService from './AuthService';
+import authService from '../AuthService';
 
 import {connect} from 'react-redux';
 
-import {signInUser} from './actions';
-import './index.css';
+import {signInUser} from '../actions';
+
 
 //Design;
 
