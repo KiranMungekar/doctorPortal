@@ -82,7 +82,7 @@ const AddPatients= ({user,addPatient, history})=>{
                            name:"",
                            email:"",
                            password:"",
-                           phone:"",
+                           phone:"healthcare",
                            pincode:"",
                            diagnosis:[],
                            prescription:[],
