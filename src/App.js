@@ -15,7 +15,7 @@ import ErrorComponent from './Components/ErrorComponent';
 
 
 //Design;
-import { Layout,Button ,Typography,Row, Col} from 'antd';
+import { Layout ,Typography,Space} from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 const { Title,Text } = Typography;
 
@@ -23,11 +23,12 @@ function App() {
   return (
     
         <Layout className="">
-          <Router>
-          <Header>
-            <Title level={2}>Doctor Portal</Title>
+          
+          <Header style={{display:'flex',justifyContent:'center' ,alignContent:'center', alignItems:'center'}}>
+            <Title style={{alignSelf:'center' , color:'#FFFFFF'}} level={2}>Doctor Portal</Title>
           </Header>
-          <Content  className="site-layout-background" style={{width:'100%', paddingRight:'30%', paddingLeft:'30%'}} >
+          <Router>
+            <Content  className="site-layout-background" style={{width:'100%', paddingRight:'30%', paddingLeft:'30%'}} >
               
               <Switch>
                 <Route exact path="/" component={Signup} />
@@ -42,6 +43,12 @@ function App() {
               
           </Content>
           </Router>
+          <Footer style={{display:'flex', justifyContent:'end', backgroundColor:'#000000'}}>
+            <Space >
+              <p style={{color:'#FFFFFF'}} level={5}> Testing React with redux and Ant UI framework by <a href="https://github.com/KiranMungekar" target="_blank">@KiranM</a> </p>
+            </Space>
+          </Footer>
+          
         </Layout>
 
     

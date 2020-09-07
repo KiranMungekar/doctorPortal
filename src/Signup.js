@@ -25,9 +25,9 @@ const Signup= (props)=>{
         return(
             <Layout>
                 <Content >
-                    <div className="" style={{padding: 24}}>
+                    <div className="" style={{display:'flex', justifyContent:'center',  padding: 24}}>
                         <div span={24}>
-                            <Title level={2} >Login</Title>
+                            <Title level={2} >SignIn</Title>
                         </div>
                     
                     </div>

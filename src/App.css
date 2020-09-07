@@ -29,6 +29,10 @@ container{
   justify-content: center;
 }
 
+.ant-layout{
+  height: 100%!important;
+}
+
 
 .App-container{
   display: flex;
