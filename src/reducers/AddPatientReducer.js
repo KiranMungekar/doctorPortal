@@ -34,8 +34,12 @@ export default function(state= initialState, action){
                 patients:[action.payload,...state.patients]
             };
 
-        case actions.REMOVE_PATIENT: 
-            return action.payload || null;
+        case actions.REMOVE_PATIENT:
+            const newPatient= state.patients.filter(pat=> pat.id != action.payload.id) 
+            return {
+                ...state,
+                patients:newPatient
+            }
 
         case actions.UPDATE_PATIENT: 
             return action.payload || null;            

@@ -3,7 +3,7 @@ import {Link,useParams,withRouter} from 'react-router-dom';
 import { useLocation } from 'react-router';
 import {connect} from 'react-redux';
 import PatientsList from './patients/PatientsList';
-import {fetchUser,fetchPatients} from './actions'
+import {fetchUser,fetchPatients,removePatient} from './actions'
 
 import { Typography, Divider } from 'antd';
 
@@ -43,10 +43,11 @@ const Dashboard = ({user,isLoggedin, patients,fetchPatients,fetchUser,match,hist
                         <div>
                             {patients.length}
                         </div>
-                        <PatientsList patients={patients} />
                         <div>
                             <Link to="/dashboard/addpatient">Add Patient</Link>
                         </div>
+                        <PatientsList patients={patients} removePatient={removePatient} history={history}/>
+                       
     
                     </div>
                    
@@ -69,7 +70,7 @@ const mapStateToProps=state=>({
 
 
 
- export default connect(mapStateToProps,{fetchPatients,fetchUser})(withRouter(Dashboard));
+ export default connect(mapStateToProps,{fetchPatients,fetchUser, removePatient})(withRouter(Dashboard));
 
 
 
@@ -83,8 +84,8 @@ const mapStateToProps=state=>({
                 <div> 
                     <div>
                             <div>
-                                <p><Title level={5} >Name:</Title> <Title level={5} strong> Dr. {info.name} ({info.degree})</Title> </p>
-                                <p><Title level={5} >Joined On:</Title> <Title level={5} strong>{info.createdAt}</Title> </p>
+                                <p><Text level={5} >Name:</Text> <Text level={5} strong> Dr. {info.name} ({info.degree})</Text> </p>
+                                <p><Text level={5} >Joined On:</Text> <Text level={5} strong>{info.createdAt}</Text> </p>
                             </div>
                         
                     </div>

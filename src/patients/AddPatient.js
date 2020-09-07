@@ -11,181 +11,322 @@ import FieldArray from './FieldArray';
 import {withRouter} from 'react-router-dom';
 
 
+//Design;
+import {  Form,
+    Input,
+    Tooltip,
+    Cascader,
+    Select,
+    Row,
+    Col,
+    Checkbox,
+    Button,
+    Space,
+    AutoComplete,
+    Image,Avatar,Typography, Divider } from 'antd';
 
-var defaultValues= {
-    name: "",
-    email: "",
-    password: "",
-    phone:"",
-    diagnosis:diagnosisField,
-    prescription:presciptionField,
-    pincode:""
-} 
+    import { UserOutlined ,MinusCircleOutlined, PlusOutlined} from '@ant-design/icons';
 
-var diagnosisField={
-    dia:[
-        {
-          name:"dia"
-        }
-    ]
-}
+
+const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 4 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 20 },
+    },
+  };
+  const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+      xs: { span: 24, offset: 0 },
+      sm: { span: 20, offset: 4 },
+    },
+  };
+
+const { Title, Paragraph, Text } = Typography;
+
+
+
  
-var presciptionField={
-     pres:[
-         {
-           name:"pres"
-         }
-     ]
-}
- 
 
-const AddPatients= ({user,addPatient,updatePatient, history})=>{
-    const [loading, setLoading]= useState(true);
-    
-    
-                                                            
-    const [initDiagnos, setInitialDiagnos] =new useState({
-                                                            dia:[
-                                                                {
-                                                                name:"dia"
-                                                                }
-                                                            ]
-                                                        });
-
-    const [initPrescription, setInitialPrescription] =new useState({
-                                                            pres:[
-                                                                {
-                                                                name:"pres"
-                                                                }
-                                                            ]
-                                                        });
-    const [intialValues, setInitialValues] = new useState({ name: "",
-                                                        email: "",
-                                                        password: "",
-                                                        phone:"",
-                                                        diagnosis:initDiagnos,
-                                                        prescription:initPrescription,
-                                                        pincode:"" });                                                      
-
-    const {control, register, handleSubmit, getValues, errors}= useForm(intialValues);                                                    
-
-
-    
-                                                            
-    const onSubmit = handleSubmit((data,e) => {
-        
-        
+const AddPatients= ({user,addPatient, history})=>{
+                                         
+    const onSubmit = (data) => {
         console.log(data);
         addPatient(data);
         alert('Patient Added');
+        goBack();
+     };
+     const goBack= ()=>{
         history.goBack();
-     });
-
-     
-
-
-    const preFillForm=(userData)=>{
-        console.log('Prefilled data');
-        setInitialPrescription(userData.prescription);
-        setInitialDiagnos(userData.diagnosis);
-       // presciptionField.pres= userData.prescription;
-
-        setInitialValues({
-            name: userData.name,
-            email: userData.email,
-            password: userData.password,
-            phone:userData.phone,
-            diagnosis:diagnosisField,
-            prescription:presciptionField,
-            pincode:userData.pincode
-        })
-        setLoading(false);
     }
 
-    useEffect(() => {
-        if(user != null){
-            setUpData(user);
-        }else{
-            console.log('Redirect Signup');
-            history.push('/signup');
+    useEffect(()=>{
+        if(user  == null){
+            alert('User not found. Please login again.');
+            goBack();
         }
-        
-     }, [])
-
-    
-    
-     const setUpData=(user)=>{
-        if(user.role === 'PATIENT'){
-            preFillForm(user);
-        }else{
-            setLoading(false);
-        }
-     }
+    })
+    const [form] =Form.useForm();
   
-    
-    if(loading){
-        return (
-            <div>
-                <h1>Loading ...</h1>
-            </div>
-        )
-    }else{
+
         if(user != null){
             return(
                 <div>
-                    <form method="POST" onSubmit={onSubmit}> 
-                        <div>
-                            <label>Name</label>
-                            <input  name="name"  ref={ register}/>
-                        </div>  
-                        <div>
-                            <label>Email</label>
-                            <input name="email"  ref={ register}/>
-                        </div>
-                        <div>
-                            <label>Password</label>
-                            <input name="password" type="password"  ref={ register}/>
-                        </div>
-                        <div>
-                            <label>Phone</label>
-                            <input name="phone"  ref={register}/>
-                        </div>
-                        <div>
-                            <label>Diagnosis</label>
-                            <FieldArray
-                                {...{ control,
-                                    register,
-                                    intialValues,
-                                    getValues,
-                                    errors,
-                                    fieldName: "diagnosis" }}
-                            />
-                        </div>
-        
-                        <div>
-                            <label>Prescription</label>
-                            <FieldArray
-                                {...{ control,
-                                    register,
-                                    intialValues,
-                                    getValues,
-                                    errors,
-                                    fieldName: "prescription" }}
-                            />
-                        </div>
-                        <div>
-                            <label>Pincode</label>
-                            <input name="pincode" ref={register}/>
-                        </div>
-                       
-                        <button type="submit">Submit</button>
-                    </form>
+                        <Form  form={form}
+                        name="register"
+                        onFinish={onSubmit}
+                        initialValues={{
+                           name:"",
+                           email:"",
+                           password:"",
+                           phone:"",
+                           pincode:"",
+                           diagnosis:[],
+                           prescription:[],
+                        }}
+                        scrollToFirstError>
+                    <Row>
+                        <Col span={20} offset={4}>
+                            <div>
+                                <Title level={2}>Add New Patient</Title>
+                            </div>
+
+                            <div>
+                                <Form.Item
+                                name="name"
+                                label="Fullname"
+                                rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your Fullname',
+                                },
+                                ]}
+                                >
+                                <Input />
+                            </Form.Item>
+                            </div>
+
+                            <div>
+                                <Form.Item
+                                    name="email"
+                                    label="Email"
+                                    rules={[
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                    ]}
+                                >
+                                    <Input />
+                                </Form.Item>
+
+                            </div>
+
+                            <div>
+                           
+                            
+                                <Form.Item
+                                    name="password"
+                                    label="Reset Password"
+                                    rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your Password!',
+                                    },
+                                    ]}
+                                >
+                                    <Input
+                                        type="password"
+                                        placeholder="Password"
+                                    />
+                                </Form.Item>
+                     
+                            </div>
+
+                            <div>
+
+                            <Form.Item
+                                    name="phone"
+                                    label="Phone Number"
+                                    rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                >
+                                <Input style={{ width: '100%' }} />
+                            </Form.Item>
+                            </div>
+
+                            <div>
+                                <Title level={4}>Address: </Title>
+                                <div>
+                                <Form.Item
+                                    name="city"
+                                    label="City"
+                                    rules={[{ required: false, message: 'Please input city/town name', whitespace: true }]}
+                                >
+                                    <Input />
+                                </Form.Item>
+                                </div>
+
+                                <div>
+                                    <Form.Item
+                                        name="pincode"
+                                        label="Pincode"
+                                        rules={[{ required: false, message: 'Please input pincode', whitespace: true }]}
+                                    >
+                                        <Input />
+                                    </Form.Item>
+                                </div>
+                            </div>
+
+
+                            
+                        </Col>
+                    </Row>
+                    <Divider/ >
+                    <Row>
+                        
+                        <Col span={20} offset={4}>
+                            <Title> Reports </Title>
+
+                            <Title level={3}> List of Dianosis </Title>
+                            <Form.List name="diagnosis">
+                            {(fields, { add, remove }) => {
+                            return (
+                                <div>
+                                {fields.map((field, index) => (
+                                    <Form.Item
+                                        {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                                        label={index === 0 ? `Diagnosis ${index+1}` : ''}
+                                        required={false}
+                                        key={field.key}
+                                        >
+                                    <Form.Item
+                                        {...field}
+                                        validateTrigger={['onChange', 'onBlur']}
+                                        rules={[
+                                        {
+                                            required: true,
+                                            whitespace: true,
+                                            message: "This Field is required",
+                                        },
+                                        ]}
+                                        noStyle
+                                    >
+                                        <Input placeholder="" style={{ width: '60%' }} />
+                                    </Form.Item>
+                                    {fields.length > 1 ? (
+                                        <MinusCircleOutlined
+                                        className="dynamic-delete-button"
+                                        style={{ margin: '0 8px' }}
+                                        onClick={() => {
+                                            remove(field.name);
+                                        }}
+                                        />
+                                    ) : null}
+                                    </Form.Item>
+                                ))}
+                                <Form.Item>
+                                    <Button
+                                    type="dashed"
+                                    onClick={() => {
+                                        add();
+                                    }}
+                                    style={{ width: '60%' }}
+                                    >
+                                    <PlusOutlined /> Add field
+                                    </Button>
+                                </Form.Item>
+                                </div>
+                            );
+                            }}
+                        </Form.List>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={20} offset={4}>
+
+                            <Title level={3}> List of Presciptions </Title>
+                            
+                            <Form.List name="prescription">
+                            {(fields, { add, remove }) => {
+                            return (
+                                <div>
+                                {fields.map((field, index) => (
+                                    <Form.Item
+                                        {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                                        label={index === 0 ? `Presciption ${index+1}` : ''}
+                                        required={false}
+                                        key={field.key}
+                                        >
+                                    <Form.Item
+                                        {...field}
+                                        validateTrigger={['onChange', 'onBlur']}
+                                        rules={[
+                                        {
+                                            required: true,
+                                            whitespace: true,
+                                            message: "This Field is required",
+                                        },
+                                        ]}
+                                        noStyle
+                                    >
+                                        <Input placeholder="" style={{ width: '60%' }} />
+                                    </Form.Item>
+                                    {fields.length > 1 ? (
+                                        <MinusCircleOutlined
+                                        className="dynamic-delete-button"
+                                        style={{ margin: '0 8px' }}
+                                        onClick={() => {
+                                            remove(field.name);
+                                        }}
+                                        />
+                                    ) : null}
+                                    </Form.Item>
+                                ))}
+                                <Form.Item>
+                                    <Button
+                                    type="dashed"
+                                    onClick={() => {
+                                        add();
+                                    }}
+                                    style={{ width: '60%' }}
+                                    >
+                                    <PlusOutlined /> Add field
+                                    </Button>
+                                </Form.Item>
+                                </div>
+                            );
+                            }}
+                        </Form.List>
+                        </Col>
+                    </Row>
+
+                    <Divider />
+                   
+
+                    <Row>
+                        <Col  span={8} offset={16}>
+                            <Space >
+                                    <Button type="primary" htmlType="submit" >Add Patient</Button>
+                                    
+                                    <Button type="danger" onClick={()=>goBack()}>Cancel</Button>
+                            </Space>
+                        </Col>           
+                    </Row>
+                </Form>
+            
                 </div>
             )
         }
         
         
-    }
+    
     
 }
 

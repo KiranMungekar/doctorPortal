@@ -72,7 +72,7 @@ export const addPatient= (data)=> async dispatch=>{
 export const removePatient = (id)=> async dispatch=>{
     const res= await axios.delete(`https://5f1e3ff157e3290016863049.mockapi.io/api/patients/${id}`);
     console.log(res);
-    dispatch({type:actions.REMOVE_PATIENT, payload: res})
+    dispatch({type:actions.REMOVE_PATIENT, payload: res.data})
 }
 
 export const updatePatient= (data)=> async dispatch=>{
