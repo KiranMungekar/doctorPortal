@@ -16,7 +16,9 @@ const Dashboard = ({user,isLoggedin, patients,fetchPatients,fetchUser,match,hist
             history.push('/signup');
         }else{
             showDashboard();
-            showPatient();
+            if(isLoggedin && user != null && user.role === 'DOCTOR' && patients.length == 0){
+                fetchPatients();
+            }
         }
     });
 
@@ -29,18 +31,15 @@ const Dashboard = ({user,isLoggedin, patients,fetchPatients,fetchUser,match,hist
         
     }
 
-    const showPatient=()=>{
-        if(isLoggedin && user != null && user.role === 'doctor' && patients.length == 0){
-            fetchPatients();
-        }
-        
-    }
     
         
         if(user != null){
                 return(
                     <div>
                         <DashboardF  info={user} patients={patients} type='doctors' />
+                        <div>
+                            {patients.length}
+                        </div>
                         <PatientsList patients={patients} />
                         <div>
                             <Link to="/dashboard/addpatient">Add Patient</Link>

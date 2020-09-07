@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class AuthService{
     constructor(){
         this.authenticated=true;
@@ -24,6 +26,15 @@ class AuthService{
 
     checkAuth(){
         return this.authenticated;
+    }
+
+    getPatientProfile= async (id) => {
+        const patient= await axios.get(`https://5f1e3ff157e3290016863049.mockapi.io/api/patients/${id}`);
+        if(patient != null){
+            return patient;
+        }else{
+            return null;
+        }
     }
 }
 

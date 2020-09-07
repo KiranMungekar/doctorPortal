@@ -11,7 +11,7 @@ import axios from 'axios';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 
-
+import 'antd/dist/antd.css';
 const middleWare=[thunk];
 
 ///Store

@@ -5,17 +5,17 @@ import {fetchPatients} from '../actions'
 
 const PatientsList = ({patients})=>{
 
-    if(patients != null && patients.length > 0 ){
+    if(patients.length > 0 ){
         return(
             <div> Patients List: 
                                 <div>
                                     {patients.map(pat=>(
                                         <div key={pat.id}>
-                                            <p>Patient Name: {pat.name} </p>
-                                            <p>Email: {pat.email} </p>
-                                            <p>Previous diagnosis: <ul>{ pat.diagnosis.map(dia=> (<li>{dia}</li>) ) }</ul></p>
-                                            <p>Previous Prescription: <ul>{ pat.prescription.map(pre=> (<li>{pre}</li>) ) }</ul></p>
-                                            <p>Address: {pat.city}, {pat.state}, zip: {pat.pincode}  </p>
+                                            <div>Patient Name: {pat.name} </div>
+                                            <div>Email: {pat.email} </div>
+                                            <div>Previous diagnosis: <displayArrayField data={pat.diagnosis} /></div>
+                                            <div>Previous Prescription: <displayArrayField data={pat.prescription} /> </div>
+                                            <div>Address: {pat.city}, {pat.state}, zip: {pat.pincode}  </div>
                                         </div>
                                     ))}
                                 </div>
@@ -28,5 +28,19 @@ const PatientsList = ({patients})=>{
    
 }
 
+
+const displayArrayField = (data)=>{
+    if(data != null && data.length > 0){
+        return(
+            <ul>
+                {data.diagnosis.map(dia=> (<li>{dia.name}</li>) ) }
+            </ul>
+        )
+    }else{
+       return ( <div>
+            <p>No record found</p>
+        </div>)
+    }
+}
 
 export default PatientsList;

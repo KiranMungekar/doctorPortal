@@ -12,22 +12,20 @@ import  Dashboard  from './Dashboard';
 import AddPatients from './patients/AddPatient';
 import PatientProfile from './patients/PatientsProfile';
 
-
+//Design;
+import { Layout,Button ,Typography,Row, Col} from 'antd';
+const { Header, Footer, Sider, Content } = Layout;
+const { Title,Text } = Typography;
 
 function App() {
   return (
     
-        <div className="App">
+        <Layout className="App">
           <Router>
-          <header className="App-header">
-            Doctor Portal
-            {/* <div> 
-              <Link to="/">Home</Link>
-              <Link to="/signup" >Signup</Link>
-              <Link to="/profile">Profile</Link>
-            </div> */}
-          </header>
-          <div className="App-container">
+          <Header>
+            <Title level={2}>Doctor Portal</Title>
+          </Header>
+          <Content className="App-container">
               
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -40,9 +38,9 @@ function App() {
                  {/* <Route path="/profile" component={Profile} /> */}
               </Switch>
               
-          </div>
+          </Content>
           </Router>
-        </div>
+        </Layout>
 
     
       );
