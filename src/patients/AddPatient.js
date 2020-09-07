@@ -134,12 +134,17 @@ const AddPatients= ({user,addPatient, history})=>{
                             
                                 <Form.Item
                                     name="password"
-                                    label="Reset Password"
+                                    label="Password"
                                     rules={[
                                     {
                                         required: true,
                                         message: 'Please input your Password!',
                                     },
+                                    {
+                                        min:8,
+                                        message: 'Minimun 8 character required',
+                                    }
+                                    
                                     ]}
                                 >
                                     <Input
@@ -155,7 +160,17 @@ const AddPatients= ({user,addPatient, history})=>{
                             <Form.Item
                                     name="phone"
                                     label="Phone Number"
-                                    rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                    rules={[
+                                        {
+                                         required: true, message: 'Please input your phone number!' 
+                                        },
+                                        {
+                                            type:'number', message: 'Please enter numeric input/ digits!' 
+                                        },
+                                        {
+                                            min: 10, max: 10, message: 'Enter 10 digit phone no' 
+                                        }
+                                    ]}
                                 >
                                 <Input style={{ width: '100%' }} />
                             </Form.Item>

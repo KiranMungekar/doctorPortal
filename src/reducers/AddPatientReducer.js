@@ -42,7 +42,13 @@ export default function(state= initialState, action){
             }
 
         case actions.UPDATE_PATIENT: 
-            return action.payload || null;            
+
+            const oldPatients= state.patients.filter(pat=> pat.id != action.payload.id) 
+
+        return {
+            ...state,
+            patients:[action.payload,...oldPatients]
+        }          
          
         default:
             return state;

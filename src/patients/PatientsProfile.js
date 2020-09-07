@@ -46,18 +46,24 @@ const PatientProfile= ({isLoggedin,user,updatePatient,history})=>{
     const params=useParams();
     const [patient, setPatient]=useState(null);
     const [loading, setLoading]= useState(true);
+    const [editable, setEditable] = useState(false);
+
 
     const getPatientData =async ()=>{
+        if(user != null && user.role === 'DOCTOR'){
+            setEditable(true);
+        }
         const {data}= await authService.getPatientProfile(params.id)
         if(data != undefined && data != null){
             setPatient(data);
         }
         setLoading(false);   
     }
-
+    
 
     
     useEffect(()=>{
+        
         // if(!isLoggedin){
         //     history.push('/signup')
         // }else{
@@ -75,10 +81,11 @@ const PatientProfile= ({isLoggedin,user,updatePatient,history})=>{
         )
     }else{
         if(patient != null){
+            
             return (
                 <div>
                     <h1>Patient Profile</h1>
-                    <PatientProfileComponent patient={patient} user={user} updatePatient={updatePatient} history={history}/>
+                    <PatientProfileComponent patient={patient} editable={editable} updatePatient={updatePatient} history={history}/>
                 </div>   
             )
         }else{
@@ -104,7 +111,7 @@ export default connect(mapStateToProps,{updatePatient})(withRouter(PatientProfil
 
 
 
-const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
+const PatientProfileComponent= ({patient,editable,updatePatient, history})=>{
     
     const [form] =Form.useForm();
 
@@ -170,7 +177,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                 },
                                 ]}
                                 >
-                                <Input />
+                                <Input disabled={!editable} />
                             </Form.Item>
                             </div>
 
@@ -189,7 +196,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                     },
                                     ]}
                                 >
-                                    <Input />
+                                    <Input disabled={!editable} />
                                 </Form.Item>
 
                             </div>
@@ -201,7 +208,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                     label="Phone Number"
                                     rules={[{ required: true, message: 'Please input your phone number!' }]}
                                 >
-                                <Input style={{ width: '100%' }} />
+                                <Input disabled={!editable} style={{ width: '100%' }} />
                             </Form.Item>
                             </div>
 
@@ -213,7 +220,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                     label="City"
                                     rules={[{ required: false, message: 'Please input city/town name', whitespace: true }]}
                                 >
-                                    <Input />
+                                    <Input disabled={!editable}/>
                                 </Form.Item>
                                 </div>
 
@@ -223,7 +230,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                         label="Pincode"
                                         rules={[{ required: false, message: 'Please input pincode', whitespace: true }]}
                                     >
-                                        <Input />
+                                        <Input  disabled={!editable}/>
                                     </Form.Item>
                                 </div>
                             </div>
@@ -262,12 +269,13 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                         ]}
                                         noStyle
                                     >
-                                        <Input placeholder="" style={{ width: '60%' }} />
+                                        <Input disabled={!editable} placeholder="" style={{ width: '60%' }} />
                                     </Form.Item>
                                     {fields.length > 1 ? (
                                         <MinusCircleOutlined
                                         className="dynamic-delete-button"
                                         style={{ margin: '0 8px' }}
+                                        disabled={!editable}
                                         onClick={() => {
                                             remove(field.name);
                                         }}
@@ -278,6 +286,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                 <Form.Item>
                                     <Button
                                     type="dashed"
+                                    disabled={!editable}
                                     onClick={() => {
                                         add();
                                     }}
@@ -320,7 +329,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                         ]}
                                         noStyle
                                     >
-                                        <Input placeholder="" style={{ width: '60%' }} />
+                                        <Input disabled={!editable} placeholder="" style={{ width: '60%' }} />
                                     </Form.Item>
                                     {fields.length > 1 ? (
                                         <MinusCircleOutlined
@@ -336,12 +345,13 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                                 <Form.Item>
                                     <Button
                                     type="dashed"
+                                    disabled={!editable}
                                     onClick={() => {
                                         add();
                                     }}
                                     style={{ width: '60%' }}
                                     >
-                                    <PlusOutlined /> Add field
+                                    <PlusOutlined /> Add More
                                     </Button>
                                 </Form.Item>
                                 </div>
@@ -378,7 +388,7 @@ const PatientProfileComponent= ({patient,user,updatePatient, history})=>{
                     <Row>
                         <Col  span={8} offset={16}>
                             <Space >
-                                    <Button type="primary" htmlType="submit" >Save</Button>
+                                    <Button disabled={!editable} type="primary" htmlType="submit" >Save</Button>
                                     
                                     <Button type="danger" onClick={()=>goBack()}>Cancel</Button>
                             </Space>

@@ -6,7 +6,6 @@ class AuthService{
     }
 
 
-
     login(email,password,type, cb){
         console.log(email+" "+password+' '+type)
         if(type==='doctor'){

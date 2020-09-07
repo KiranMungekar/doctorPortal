@@ -11,6 +11,8 @@ import ProtectedRoutes from './ProtectedRoutes';
 import  Dashboard  from './Dashboard';
 import AddPatients from './patients/AddPatient';
 import PatientProfile from './patients/PatientsProfile';
+import ErrorComponent from './Components/ErrorComponent';
+
 
 //Design;
 import { Layout,Button ,Typography,Row, Col} from 'antd';
@@ -28,14 +30,14 @@ function App() {
           <Content  className="site-layout-background" style={{width:'100%', paddingRight:'30%', paddingLeft:'30%'}} >
               
               <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={Signup} />
                 <Route exact path="/signup" component={Signup} />
                 
-                <ProtectedRoutes exact path="/profile/:id" component={Profile} />
+                <Route exact path="/profile/:id" component={Profile} />
                 <ProtectedRoutes exact path="/dashboard/doctor/:id" component={Dashboard} />
                 <ProtectedRoutes extact path="/dashboard/addpatient" component={AddPatients}/>
-                <ProtectedRoutes extact path="/dashboard/patient/:id" component={PatientProfile} />
-                 {/* <Route path="/profile" component={Profile} /> */}
+                <Route extact path="/dashboard/patient/:id" component={PatientProfile} />
+                <Route path="**" component={ErrorComponent} />
               </Switch>
               
           </Content>

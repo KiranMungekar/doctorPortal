@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 import * as actions from './types';
 
 import history from '../history';
@@ -20,7 +19,7 @@ const authenticatePatient = async (email,password)  => {
 export const signInUser= (email, password,type)=> async dispatch=>{
     console.log('SignIn actions');
     if(type==='doctor'){
-        if(email === 'kiran', password === '123'){
+        if(email === 'kiran' && password === '123'){
             const res= await axios.get(`https://5f1e3ff157e3290016863049.mockapi.io/api/doctors/1`)
             dispatch({ type: actions.SIGNIN_USER, payload: true });
             dispatch({type: actions.FETCH_USER, payload: res.data});
@@ -33,10 +32,17 @@ export const signInUser= (email, password,type)=> async dispatch=>{
         const res= await authenticatePatient(email, password);
         dispatch({ type: actions.SIGNIN_USER, payload: res.valid });
         dispatch({type: actions.FETCH_USER, payload: res.user});
-        return {
-            valid: res.valid,
-            id:res.user.id || 0
-        };
+        if(res.user != null){
+            return {
+                valid: res.valid,
+                id:res.user.id 
+            };
+        }else{
+            return {
+                valid: res.valid,
+                id:0
+            };
+        }
     }
 }
 
@@ -66,7 +72,7 @@ export const addPatient= (data)=> async dispatch=>{
 
     const res= await axios.post(`https://5f1e3ff157e3290016863049.mockapi.io/api/patients`,postdata);
     console.log(res);
-    dispatch({type:actions.ADD_PATIENT, payload:res});
+    dispatch({type:actions.ADD_PATIENT, payload:res.data});
 }
 
 export const removePatient = (id)=> async dispatch=>{
@@ -88,7 +94,7 @@ export const updatePatient= (data)=> async dispatch=>{
     const res= await axios.put(`https://5f1e3ff157e3290016863049.mockapi.io/api/patients/${data.id}`,postdata);
     console.log(res);
     
-    dispatch({type:actions.UPDATE_PATIENT, payload: res})
+    dispatch({type:actions.UPDATE_PATIENT, payload: res.data})
 }
 
 // export const handleCredits=(token)=> async dispatch=>{
