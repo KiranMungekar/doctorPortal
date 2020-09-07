@@ -19,7 +19,7 @@ const authenticatePatient = async (email,password)  => {
 export const signInUser= (email, password,type)=> async dispatch=>{
     console.log('SignIn actions');
     if(type==='doctor'){
-        if(email === 'kiran' && password === '123'){
+        if(email === 'kiran@portal.com' && password === 'healthcare'){
             const res= await axios.get(`https://5f1e3ff157e3290016863049.mockapi.io/api/doctors/1`)
             dispatch({ type: actions.SIGNIN_USER, payload: true });
             dispatch({type: actions.FETCH_USER, payload: res.data});
